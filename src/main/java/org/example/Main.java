@@ -6,64 +6,64 @@ public class Main {
 
     public static void main(String[] args) {
 
-        double suma = 0;
-        double malyRabat = 0.10;
-        double duzyRabat = 0.25;
+        double total = 0;
+        double smallDiscount = 0.10;
+        double bigDiscount = 0.25;
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Wpisz produkt (lub 'koniec'):");
+        System.out.println("Enter product name (or 'end'):");
 
-        String produkt = scanner.nextLine();
+        String product = scanner.nextLine();
 
-        while (!produkt.equals("koniec")) {
+        while (!product.equals("end")) {
 
-            while (!produkt.matches("[a-zA-ZąćęłńóśżźĄĆĘŁŃÓŚŻŹ ]+")) {
-                System.out.println("To nie produkt! Spróbuj jeszcze raz:");
-                produkt = scanner.nextLine();
+            while (!product.matches("[a-zA-Z ]+")) {
+                System.out.println("Invalid product name! Try again:");
+                product = scanner.nextLine();
             }
 
-            System.out.println("Wpisz cenę:");
+            System.out.println("Enter product price:");
 
             while (!scanner.hasNextDouble()) {
-                System.out.println("To nie cena! Spróbuj jeszcze raz:");
+                System.out.println("Invalid price! Try again:");
                 scanner.next();
             }
 
-            double cena = scanner.nextDouble();
-            suma += cena;
+            double price = scanner.nextDouble();
+            total += price;
 
             scanner.nextLine();
 
-            double doMalegoRabatu = 100 - suma;
-            double doDuzegoRabatu = 400 - suma;
+            double toSmallDiscount = 100 - total;
+            double toBigDiscount = 400 - total;
 
-            System.out.printf("Suma zakupów: %.2f zł%n", suma);
+            System.out.printf("Current cart total: %.2f PLN%n", total);
 
-            if (suma < 100) {
-                System.out.printf("Do rabatu 10%% brakuje %.2f zł%n", doMalegoRabatu);
+            if (total < 100) {
+                System.out.printf("You need %.2f PLN more to get a 10%% discount%n", toSmallDiscount);
             }
-            else if (suma < 400) {
-                System.out.printf("Masz rabat 10%%. Do rabatu 25%% brakuje %.2f zł%n", doDuzegoRabatu);
+            else if (total < 400) {
+                System.out.printf("You have a 10%% discount. %.2f PLN left to reach a 25%% discount%n", toBigDiscount);
             }
             else {
-                System.out.println("Masz rabat 25%");
+                System.out.println("You have a 25% discount");
             }
 
-            System.out.println("Wpisz kolejny produkt (lub 'koniec'):");
-            produkt = scanner.nextLine();
+            System.out.println("Enter next product (or 'end'):");
+            product = scanner.nextLine();
         }
 
-        double sumaZRabatem = suma;
+        double totalWithDiscount = total;
 
-        if (suma >= 400) {
-            sumaZRabatem = suma * (1 - duzyRabat);
+        if (total >= 400) {
+            totalWithDiscount = total * (1 - bigDiscount);
         }
-        else if (suma >= 100) {
-            sumaZRabatem = suma * (1 - malyRabat);
+        else if (total >= 100) {
+            totalWithDiscount = total * (1 - smallDiscount);
         }
 
-        System.out.printf("Końcowa suma po rabacie: %.2f zł%n", sumaZRabatem);
+        System.out.printf("Final total after discount: %.2f PLN%n", totalWithDiscount);
 
         scanner.close();
     }
