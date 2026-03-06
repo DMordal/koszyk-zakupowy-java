@@ -1,0 +1,15 @@
+tshirt;79.99
+hoodie;159.99
+jeans;249.99
+sweatpants;139.99
+jacket;399.99
+beanie;49.99
+scarf;59.99
+socks;29.99
+running_shoes;329.99
+winter_boots;449.99
+belt;89.99
+bag;199.99
+backpack;219.99
+shirt;179.99
+sweater;189.99
