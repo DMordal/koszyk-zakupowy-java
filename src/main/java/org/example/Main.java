@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 
 
 public class Main {
+    //sdasd
 
     public static void main(String[] args) throws FileNotFoundException {
         File file = new File("products.txt");
