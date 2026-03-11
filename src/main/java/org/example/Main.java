@@ -5,10 +5,10 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
+
         File file = new File("products.txt");
         Scanner fileScanner = new Scanner(file);
 
@@ -19,26 +19,28 @@ public class Main {
         while (fileScanner.hasNextLine()) {
 
             String line = fileScanner.nextLine();
-
             String[] parts = line.split(";");
 
             String productName = parts[0];
             double productPrice = Double.parseDouble(parts[1]);
 
-            System.out.println(productName + " - " + productPrice);
             productNames.add(productName);
             productPrices.add(productPrice);
         }
 
         fileScanner.close();
+
         double total = 0;
+        double totalWithDiscount = 0;
         double smallDiscount = 0.10;
         double bigDiscount = 0.25;
-        double totalWithDiscount = 0;
 
         Scanner scanner = new Scanner(System.in);
+
         System.out.println("Select product:");
+
         while (true) {
+
             for (int i = 0; i < productNames.size(); i++) {
 
                 System.out.println((i + 1) + ". "
@@ -48,26 +50,30 @@ public class Main {
             }
 
             System.out.println("0. finish");
+
             while (!scanner.hasNextInt()) {
                 System.out.println("It's not a number! Try again:");
                 scanner.next();
             }
 
             int choice = scanner.nextInt();
+
             if (choice == 0) {
                 break;
             }
+
             if (choice < 1 || choice > productNames.size()) {
                 System.out.println("Invalid product number");
                 continue;
             }
-            String selectedProduct = productNames.get(choice - 1);
-            cart.add(selectedProduct);
 
+            String selectedProduct = productNames.get(choice - 1);
             double price = productPrices.get(choice - 1);
+
+            cart.add(selectedProduct);
             total += price;
 
-            scanner.nextLine();
+            System.out.println("Added to cart: " + selectedProduct);
 
             double toSmallDiscount = 100 - total;
             double toBigDiscount = 400 - total;
@@ -91,16 +97,16 @@ public class Main {
             }
 
             System.out.printf("Final total after discount: %.2f PLN%n", totalWithDiscount);
-
         }
+
         scanner.close();
+
         System.out.println("\nProducts in cart:");
 
         for (String product : cart) {
             System.out.println(product);
         }
-        System.out.println("\n Total price:" + totalWithDiscount);
+
+        System.out.printf("\nTotal price: %.2f PLN%n", totalWithDiscount);
     }
-
-
 }
