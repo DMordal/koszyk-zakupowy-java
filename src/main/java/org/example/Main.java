@@ -12,9 +12,8 @@ public class Main {
         File file = new File("products.txt");
         Scanner fileScanner = new Scanner(file);
 
-        ArrayList<String> productNames = new ArrayList<>();
-        ArrayList<Double> productPrices = new ArrayList<>();
-        ArrayList<String> cart = new ArrayList<>();
+        ArrayList<Product> products = new ArrayList<>();
+        ArrayList<Product> cart = new ArrayList<>();
 
         while (fileScanner.hasNextLine()) {
 
@@ -24,8 +23,7 @@ public class Main {
             String productName = parts[0];
             double productPrice = Double.parseDouble(parts[1]);
 
-            productNames.add(productName);
-            productPrices.add(productPrice);
+            products.add(new Product(productName, productPrice));
         }
 
         fileScanner.close();
@@ -41,12 +39,9 @@ public class Main {
 
         while (true) {
 
-            for (int i = 0; i < productNames.size(); i++) {
+            for (int i = 0; i < products.size(); i++) {
 
-                System.out.println((i + 1) + ". "
-                        + productNames.get(i)
-                        + " - "
-                        + productPrices.get(i));
+                System.out.println((i + 1) + ". " + products.get(i));
             }
 
             System.out.println("0. finish");
@@ -62,15 +57,15 @@ public class Main {
                 break;
             }
 
-            if (choice < 1 || choice > productNames.size()) {
+            if (choice < 1 || choice > products.size()) {
                 System.out.println("Invalid product number");
                 continue;
             }
 
-            String selectedProduct = productNames.get(choice - 1);
-            double price = productPrices.get(choice - 1);
-
+            Product selectedProduct = products.get(choice - 1);
             cart.add(selectedProduct);
+
+            double price = selectedProduct.getPrice();
             total += price;
 
             System.out.println("Added to cart: " + selectedProduct);
@@ -103,7 +98,7 @@ public class Main {
 
         System.out.println("\nProducts in cart:");
 
-        for (String product : cart) {
+        for (Product product : cart) {
             System.out.println(product);
         }
 
